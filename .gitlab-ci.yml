@@ -1,0 +1,29 @@
+image: jangrewe/gitlab-ci-android
+
+stages:
+  - build
+  - test
+
+before_script:
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
+  - chmod +x ./gradlew
+
+assembleDebug:
+  stage: build
+  needs: []
+  script:
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+      - androidApp/build/outputs/apk/debug/androidApp-debug.apk
+      - shared/build/outputs/aar/shared-debug.aar
+
+unitTests:
+  stage: test
+  needs: []
+  script:
+    - ./gradlew test
+  artifacts:
+    paths:
+      - shared/build/outputs/
+      - shared/build/reports/
