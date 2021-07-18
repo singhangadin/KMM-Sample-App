@@ -24,7 +24,7 @@ class NetworkClient {
 
             install(Logging) {
                 logger = Logger.DEFAULT
-                level = LogLevel.HEADERS
+                level = LogLevel.ALL
             }
 
             install(JsonFeature) {
@@ -38,8 +38,6 @@ class NetworkClient {
             install(RequestRetryFeature) {
                 retryCount = 4
             }
-
-            install(PipelineLoggingFeature)
 
             defaultRequest {
                 url {

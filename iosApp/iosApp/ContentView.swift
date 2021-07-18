@@ -16,21 +16,21 @@ struct ContentView: View {
 	}
     
     private func listView() -> AnyView {
-            switch viewModel.states {
+        switch viewModel.states {
             case .empty:
                 return AnyView(Spacer())
             case .loading:
                 return AnyView(Text("Loading...").multilineTextAlignment(.center))
-            case .result(let response):
-                return
-                    AnyView(Text(response[0].url).multilineTextAlignment(.center))
-//                    AnyView(List(response) {
-//                        data in ItemRow(photoData: data)
-//                })
+            case .result(let photos):
+                return AnyView(List {
+                    ForEach(photos, id: \.self) { photo in
+                        ItemRow(photoData: photo)
+                    }
+                })
             case .error(let description):
                 return AnyView(Text(description).multilineTextAlignment(.center))
-            }
         }
+    }
 }
 
 extension ContentView {

@@ -8,17 +8,18 @@
 
 import SwiftUI
 import shared
+import Kingfisher
 
 struct ItemRow: View {
-    var photoData: Photos
+    let photoData: Photos
 
     var body: some View {
-        HStack() {
-            VStack(alignment: .leading, spacing: 10.0) {
-                Text("Image Id: \(photoData.id)")
-                Text("Image Url: \(String(photoData.url))")
-            }
-            Spacer()
+        HStack(spacing: 10.0) {
+            KFImage(URL(string: photoData.src.small))
+                .resizable()
+                .frame(width: 50, height: 50, alignment: .leading)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            Text("Image Id: \(photoData.id)").frame(alignment: .topLeading)
         }
     }
 }
