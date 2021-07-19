@@ -1,6 +1,6 @@
 package com.github.angads25.kmmsampleapp
 
-import com.github.angads25.kmmsampleapp.network.RequestRetryFeature
+import com.github.angads25.kmmsampleapp.network.features.RequestRetryFeature
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.client.request.*
