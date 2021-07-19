@@ -1,4 +1,4 @@
-package com.github.angads25.kmmsampleapp.network
+package com.github.angads25.kmmsampleapp.network.features
 
 import io.ktor.client.*
 import io.ktor.client.features.*

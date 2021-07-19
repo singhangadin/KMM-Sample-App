@@ -8,10 +8,10 @@ plugins {
 }
 
 version = "1.0.0"
-val ktorVersion = "1.5.3"
+val ktorVersion = "1.6.1"
 val kodeinVersion = "7.6.0"
 val logbackVersion = "1.0.0"
-val coroutineVersion = "1.4.3-native-mt"
+val coroutineVersion = "1.5.0-native-mt"
 val serializationVersion = "1.1.0"
 
 kotlin {
@@ -37,9 +37,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.kodein.di:kodein-di:$kodeinVersion")
-                implementation("io.ktor:ktor-client-cio:$ktorVersion")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
+                implementation("io.ktor:ktor-client-auth:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("ch.qos.logback:logback-classic:$logbackVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")

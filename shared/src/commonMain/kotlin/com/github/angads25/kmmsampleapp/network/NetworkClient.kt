@@ -1,5 +1,6 @@
 package com.github.angads25.kmmsampleapp.network
 
+import com.github.angads25.kmmsampleapp.network.features.RequestRetryFeature
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
@@ -7,16 +8,12 @@ import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.ktor.util.*
 import kotlinx.serialization.json.Json as KotlinJson
 
 class NetworkClient {
 
-    @KtorExperimentalAPI
     fun getNetworkClient(): HttpClient {
         return HttpClient {
-            expectSuccess = false
-
             engine {
                 threadsCount = 4
                 pipelining = true
