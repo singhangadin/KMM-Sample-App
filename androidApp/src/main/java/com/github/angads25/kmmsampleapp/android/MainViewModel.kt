@@ -4,17 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.angads25.kmmsampleapp.UseCaseProvider
-import com.github.angads25.kmmsampleapp.repository.PexelImagesUseCase
+import com.github.angads25.kmmsampleapp.repository.PixadayImagesUseCase
 import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
 
     val liveData = MutableLiveData<String?>()
-    val networkUseCase: PexelImagesUseCase = UseCaseProvider.pexelImagesUseCase
+    val networkUseCase: PixadayImagesUseCase = UseCaseProvider.pixabayImagesUseCase
 
     fun dummyNetworkCall(query: String, page: String) {
         viewModelScope.launch {
-            val data = networkUseCase.getPexelImages(query, page)
+            val data = networkUseCase.getPixadayImages(query, page)
             if (data.isSuccess) {
                 liveData.postValue(data.data.toString())
             } else {

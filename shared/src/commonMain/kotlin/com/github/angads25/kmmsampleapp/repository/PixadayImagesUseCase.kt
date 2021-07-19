@@ -1,26 +1,23 @@
 package com.github.angads25.kmmsampleapp.repository
 
 import com.github.angads25.kmmsampleapp.data.ApiResponse
-import com.github.angads25.kmmsampleapp.data.PexelImageResponse
+import com.github.angads25.kmmsampleapp.data.PixabayImageResponse
 import com.github.angads25.kmmsampleapp.network.NetworkClient
 import io.ktor.client.features.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 
-class PexelImagesUseCase(val networkClient: Lazy<NetworkClient>) {
+class PixadayImagesUseCase(val networkClient: Lazy<NetworkClient>) {
 
-    suspend fun getPexelImages(query: String, page: String): ApiResponse<PexelImageResponse> {
+    suspend fun getPixadayImages(query: String, page: String): ApiResponse<PixabayImageResponse> {
         return try {
-            val response = networkClient.value.getNetworkClient().get<PexelImageResponse> {
+            val response = networkClient.value.getNetworkClient().get<PixabayImageResponse> {
                 url {
-                    encodedPath = "/v1/search"
+                    encodedPath = "/api/"
                     parameters.apply {
-                        append("query", query)
+                        append("key", "")
+                        append("q", query)
                         append("page", page)
-                    }
-
-                    headers {
-                        append("Authorization", "")
                     }
                 }
             }

@@ -11,15 +11,16 @@ import shared
 import Kingfisher
 
 struct ItemRow: View {
-    let photoData: Photos
+    let photoData: Hits
 
     var body: some View {
         HStack(spacing: 10.0) {
-            KFImage(URL(string: photoData.src.small))
+            KFImage(URL(string: photoData.previewURL))
                 .resizable()
                 .frame(width: 50, height: 50, alignment: .leading)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-            Text("Image Id: \(photoData.id)").frame(alignment: .topLeading)
+            
+            Text("Photo by \(photoData.user)").frame(alignment: .topLeading)
         }
     }
 }

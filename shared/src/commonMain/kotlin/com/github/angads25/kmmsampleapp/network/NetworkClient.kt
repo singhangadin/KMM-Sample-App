@@ -6,7 +6,6 @@ import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
-import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.serialization.json.Json as KotlinJson
 
@@ -29,6 +28,7 @@ class NetworkClient {
                 KotlinJson {
                     isLenient = true
                     ignoreUnknownKeys = true
+                    useAlternativeNames = false
                 })
             }
 
@@ -39,10 +39,7 @@ class NetworkClient {
             defaultRequest {
                 url {
                     protocol = URLProtocol.HTTPS
-                    host = "api.pexels.com"
-                }
-                headers {
-                    append("Authorization","")
+                    host = "pixabay.com"
                 }
             }
         }

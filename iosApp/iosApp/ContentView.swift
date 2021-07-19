@@ -36,7 +36,7 @@ extension ContentView {
     enum States {
         case empty
         case loading
-        case result([Photos])
+        case result([Hits])
         case error(String)
     }
 
@@ -56,11 +56,11 @@ extension ContentView {
             }
             
             self.states = .loading
-            networkProvider.pexelImagesUseCase.getPexelImages(query: query, page: String(currentPage), completionHandler: { response, error in
+            networkProvider.pixabayImagesUseCase.getPixadayImages(query: query, page: String(currentPage), completionHandler: { response, error in
                 if let response = response {
                     if (response.isSuccess) {
                         self.currentPage += 1
-                        self.states = .result(response.data?.photos ?? [])
+                        self.states = .result(response.data?.hits ?? [])
                     } else {
                         self.states = .error(response.exception?.message ?? "")
                     }
