@@ -9,3 +9,4 @@
 .externalNativeBuild
 .cxx
 local.properties
+/shared/src/commonMain/kotlin/com/github/angads25/kmmsampleapp/AuthTokens.kt
