@@ -1,5 +1,6 @@
 package com.github.angads25.kmmsampleapp.repository
 
+import com.github.angads25.kmmsampleapp.AuthTokens
 import com.github.angads25.kmmsampleapp.data.ApiResponse
 import com.github.angads25.kmmsampleapp.data.PexelImageResponse
 import com.github.angads25.kmmsampleapp.network.NetworkClient
@@ -20,7 +21,7 @@ class PexelImagesUseCase(val networkClient: Lazy<NetworkClient>) {
                     }
 
                     headers {
-                        append("Authorization", "")
+                        append("Authorization", AuthTokens.PEXEL_AUTH_TOKEN)
                     }
                 }
             }
