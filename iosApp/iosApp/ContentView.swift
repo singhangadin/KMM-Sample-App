@@ -8,9 +8,8 @@ struct ContentView: View {
         NavigationView {
             listView()
                 .navigationBarTitle("Galaxy Images")
-                .navigationBarItems(trailing: Button("Load") {
-                    self.viewModel.loadNextImage(query: "galaxy", firstLoad: true)
-                })
+        }.onAppear {
+            self.viewModel.loadNextImage(query: "galaxy", firstLoad: true)
         }
 	}
     
@@ -22,8 +21,12 @@ struct ContentView: View {
                 return AnyView(Text("Loading...").multilineTextAlignment(.center))
             case .result(let photos):
                 return AnyView(List {
-                    ForEach(photos, id: \.self) { photo in
-                        ItemRow(photoData: photo)
+                    ForEach(viewModel.allPhotos, id: \.self) { photo in
+                        ItemRow(photoData: photo).onAppear {
+                            if (photos.last == photo) {
+                                self.viewModel.loadNextImage(query: "galaxy", firstLoad: false)
+                            }
+                        }
                     }
                 })
             case .error(let description):
@@ -42,6 +45,7 @@ extension ContentView {
 
     class ViewModel: ObservableObject {
         var currentPage = 1
+        @Published var allPhotos = [Hits]()
         
         let networkProvider: UseCaseProvider
         @Published var states = States.empty
@@ -53,14 +57,18 @@ extension ContentView {
         func loadNextImage(query: String, firstLoad: Bool) {
             if (firstLoad) {
                 currentPage = 1
+                self.states = .loading
             }
             
-            self.states = .loading
             networkProvider.pixabayImagesUseCase.getPixadayImages(query: query, page: String(currentPage), completionHandler: { response, error in
                 if let response = response {
                     if (response.isSuccess) {
+                        let dataList = response.data?.hits ?? []
+                        
+                        self.allPhotos += dataList
+                        
                         self.currentPage += 1
-                        self.states = .result(response.data?.hits ?? [])
+                        self.states = .result(self.allPhotos)
                     } else {
                         self.states = .error(response.exception?.message ?? "")
                     }
