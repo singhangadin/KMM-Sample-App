@@ -23,21 +23,12 @@ struct ContentView: View {
             case .result(let photos):
                 return AnyView(List {
                     ForEach(photos, id: \.self) { photo in
-                        ItemRow(photoData: photo).onAppear {
-                            self.getNextPageIfNecessary(encounteredIndex: photos.firstIndex(of: photo)!, rows: photos)
-                        }
+                        ItemRow(photoData: photo)
                     }
                 })
             case .error(let description):
                 return AnyView(Text(description).multilineTextAlignment(.center))
         }
-    }
-    
-    private func getNextPageIfNecessary(encounteredIndex: Int, rows: [Photos]) {
-        guard encounteredIndex == rows.count - 1 else { return }
-        self.viewModel.loadNextImage(query: "galaxy", firstLoad: false)
-//        rows.append(contentsOf: Array(repeating: "Photos", count: 20))
-        
     }
 }
 
