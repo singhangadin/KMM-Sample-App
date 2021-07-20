@@ -6,4 +6,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="collapsingToolbarExpandedLayoutTitleAppearance" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="collapsingToolbarCollapsedLayoutTitleAppearance" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
 </resources>

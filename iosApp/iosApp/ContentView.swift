@@ -9,7 +9,7 @@ struct ContentView: View {
             listView()
                 .navigationBarTitle("Galaxy Images")
         }.onAppear {
-            self.viewModel.loadNextImage(query: "galaxy", firstLoad: true)
+            self.viewModel.loadNextPage(query: "galaxy", firstLoad: true)
         }
 	}
     
@@ -24,7 +24,7 @@ struct ContentView: View {
                     ForEach(viewModel.allPhotos, id: \.self) { photo in
                         ItemRow(photoData: photo).onAppear {
                             if (photos.last == photo) {
-                                self.viewModel.loadNextImage(query: "galaxy", firstLoad: false)
+                                self.viewModel.loadNextPage(query: "galaxy", firstLoad: false)
                             }
                         }
                     }
@@ -54,7 +54,7 @@ extension ContentView {
             self.networkProvider = UseCaseProvider.init()
         }
 
-        func loadNextImage(query: String, firstLoad: Bool) {
+        func loadNextPage(query: String, firstLoad: Bool) {
             if (firstLoad) {
                 currentPage = 1
                 self.states = .loading
