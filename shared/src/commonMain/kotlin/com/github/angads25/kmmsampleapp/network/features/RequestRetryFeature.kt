@@ -14,11 +14,11 @@ class RequestRetryFeature constructor(val config: Config) {
 
     private fun handle(config: Config, scope: HttpClient) {
         scope.receivePipeline.intercept(HttpReceivePipeline.Before) { response ->
-            if (context.response.status.value != 200) {
+            if (context.response.status.value in 400..599) {
                 var retryCount = config.retryCount
 
                 var newResponse: HttpResponse = context.response
-                while (retryCount > 0 && newResponse.status.value != 200) {
+                while (retryCount > 0 && newResponse.status.value in 400..599) {
                     val client = HttpClient(scope.engine)
                     runCatching {
                         val requestBuilder = request {
