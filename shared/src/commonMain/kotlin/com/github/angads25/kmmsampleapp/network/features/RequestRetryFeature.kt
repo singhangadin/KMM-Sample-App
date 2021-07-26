@@ -19,26 +19,26 @@ class RequestRetryFeature constructor(val config: Config) {
 
                 var newResponse: HttpResponse = context.response
                 while (retryCount > 0 && newResponse.status.value in 400..599) {
-                    val client = HttpClient(scope.engine)
-                    runCatching {
-                        val requestBuilder = request {
-                            url(context.request.url)
-                            headers {
-                                for (header in context.request.headers.names()) {
-                                    append(header, context.request.headers[header] ?:"")
+                    HttpClient(scope.engine).use {
+                        runCatching {
+                            val requestBuilder = request {
+                                url(context.request.url)
+                                headers {
+                                    for (header in context.request.headers.names()) {
+                                        append(header, context.request.headers[header] ?: "")
+                                    }
                                 }
+                                method = context.request.method
+                                body = context.request.content
                             }
-                            method = context.request.method
-                            body = context.request.content
+                            it.request(requestBuilder) as HttpResponse
+                        }.onSuccess {
+                            newResponse = it
+                        }.onFailure {
+                            it.printStackTrace()
+                            newResponse = response
                         }
-                        client.request(requestBuilder) as HttpResponse
-                    }.onSuccess {
-                        newResponse = it
-                    }.onFailure {
-                        it.printStackTrace()
-                        newResponse = response
                     }
-                    client.close()
                     retryCount--
                 }
                 if (newResponse == context.response) {
