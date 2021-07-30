@@ -11,7 +11,7 @@ version = "1.0.0"
 val ktorVersion = "1.6.1"
 val kodeinVersion = "7.6.0"
 val logbackVersion = "1.0.0"
-val coroutineVersion = "1.5.0-native-mt"
+val coroutineVersion = "1.5.1-native-mt"
 val serializationVersion = "1.1.0"
 
 kotlin {
