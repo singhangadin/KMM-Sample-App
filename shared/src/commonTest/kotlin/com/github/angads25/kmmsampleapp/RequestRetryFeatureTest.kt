@@ -8,7 +8,7 @@ import io.ktor.client.statement.*
 import io.ktor.content.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
-import org.junit.Before
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
@@ -27,7 +27,7 @@ class RequestRetryFeatureTest {
     private val Url.urlWithoutPath: String get() = "${protocol.name}://$hostWithPortIfRequired"
     private val Url.fullUrl: String get() = "${protocol.name}://$hostWithPortIfRequired$fullPath"
 
-    @Before
+    @BeforeTest
     fun onCreate() {
     }
 
