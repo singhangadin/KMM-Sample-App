@@ -11,8 +11,9 @@ version = "1.0.0"
 val ktorVersion = "1.6.1"
 val kodeinVersion = "7.6.0"
 val logbackVersion = "1.0.0"
-val coroutineVersion = "1.5.1-native-mt"
+val napierVersion = "1.5.0"
 val serializationVersion = "1.1.0"
+val coroutineVersion = "1.5.1-native-mt"
 
 kotlin {
     android()
@@ -36,6 +37,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation("io.github.aakira:napier:$napierVersion")
+                implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
                 implementation("org.kodein.di:kodein-di:$kodeinVersion")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
